@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact ZoneSync — Questions, Feedback & Suggestions</title>
+<meta name="description" content="Get in touch with the ZoneSync team for feedback, corrections, or city requests. We read every message.">
+<link rel="canonical" href="https://zonesync.com/contact/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%230F1424%22/><circle cx=%2250%22 cy=%2250%22 r=%2238%22 fill=%22none%22 stroke=%22%23F5A623%22 stroke-width=%224%22/><line x1=%2250%22 y1=%2250%22 x2=%2250%22 y2=%2228%22 stroke=%22%23EDEEF2%22 stroke-width=%224%22 stroke-linecap=%22round%22/><line x1=%2250%22 y1=%2250%22 x2=%2268%22 y2=%2258%22 stroke=%22%233FD0C9%22 stroke-width=%224%22 stroke-linecap=%22round%22/></svg>">
+<style>
+  :root {
+    --bg: #0F1424; --bg-elev: #161D33; --bg-elev-2: #1D2640;
+    --accent: #F5A623; --cyan: #3FD0C9; --text: #EDEEF2; --text-dim: #8B92A8; --border: #2A3350;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+  a { color: var(--cyan); }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  header { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: rgba(15,20,36,0.92); backdrop-filter: blur(8px); }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; }
+  .logo-mark { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--accent); position: relative; }
+  .logo-mark::before, .logo-mark::after { content: ''; position: absolute; background: var(--text); top: 50%; left: 50%; transform-origin: 0 0; }
+  .logo-mark::before { width: 8px; height: 2px; transform: translate(0,-1px) rotate(-90deg); }
+  .logo-mark::after { width: 6px; height: 2px; background: var(--cyan); transform: translate(0,-1px) rotate(40deg); }
+  nav { display: flex; gap: 28px; }
+  nav a { color: var(--text-dim); font-size: 14px; font-weight: 500; text-decoration: none; }
+  nav a.active, nav a:hover { color: var(--text); }
+  @media (max-width: 720px) { nav { display: none; } }
+  .breadcrumb { max-width: 620px; margin: 20px auto 0; padding: 0 24px; font-size: 13px; color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); text-decoration: none; }
+  main { max-width: 620px; margin: 0 auto; padding: 24px 24px 80px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4.5vw, 38px); margin-bottom: 12px; letter-spacing: -0.02em; }
+  .sub { color: var(--text-dim); margin-bottom: 28px; font-size: 16px; }
+  .card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+  label { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 8px; }
+  .field { margin-bottom: 20px; }
+  input, textarea, select {
+    width: 100%; background: var(--bg-elev-2); border: 1px solid var(--border); color: var(--text);
+    padding: 12px 14px; border-radius: 10px; font-size: 15px; font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 120px; }
+  .submit-btn {
+    background: var(--accent); color: #1A1206; border: none; padding: 14px 24px; border-radius: 10px;
+    font-weight: 600; font-size: 15px; cursor: pointer; width: 100%; transition: background 0.15s ease;
+  }
+  .submit-btn:hover { background: #FFB94D; }
+  .alt-contact { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text-dim); }
+  .alt-contact a { color: var(--cyan); text-decoration: none; }
+  footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 40px; }
+  footer a { color: var(--text-dim); margin: 0 10px; text-decoration: none; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span>ZoneSync</span></div>
+  <nav>
+    <a href="/">World Clock</a>
+    <a href="/converter/">Converter</a>
+    <a href="/about/">About</a>
+    <a href="/contact/" class="active">Contact</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="/">Home</a> / Contact</div>
+
+<main>
+  <h1>Contact us</h1>
+  <p class="sub">Spotted an incorrect time, want a city added, or just have feedback? Send us a message and we'll get back to you.</p>
+
+  <div class="card">
+    <form id="contactForm">
+      <div class="field">
+        <label for="nameField">Name</label>
+        <input type="text" id="nameField" required placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="emailField">Email</label>
+        <input type="email" id="emailField" required placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="topicField">Topic</label>
+        <select id="topicField">
+          <option>General feedback</option>
+          <option>Report incorrect time/data</option>
+          <option>Request a city be added</option>
+          <option>Advertising inquiry</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="messageField">Message</label>
+        <textarea id="messageField" required placeholder="Let us know what's on your mind..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send message</button>
+    </form>
+
+    <div class="alt-contact">
+      Prefer email directly? Reach us at <a href="mailto:kylash.rao@gmail.com">kylash.rao@gmail.com</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/privacy/">Privacy Policy</a>
+  <div style="margin-top:14px;">© 2026 ZoneSync</div>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('nameField').value;
+  const email = document.getElementById('emailField').value;
+  const topic = document.getElementById('topicField').value;
+  const message = document.getElementById('messageField').value;
+
+  const subject = encodeURIComponent(`ZoneSync Contact: ${topic}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\nMessage:\n${message}`);
+
+  window.location.href = `mailto:kylash.rao@gmail.com?subject=${subject}&body=${body}`;
+});
+</script>
+
+</body>
+</html>

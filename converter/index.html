@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Zone Converter — Convert Between Any Two Cities | ZoneSync</title>
+<meta name="description" content="Free time zone converter. Convert time between any two cities or time zones instantly, with accurate daylight saving time handling and a live result.">
+<link rel="canonical" href="https://zonesync.com/converter/">
+<meta property="og:title" content="Time Zone Converter — ZoneSync">
+<meta property="og:description" content="Convert time between any two cities or time zones instantly, with accurate DST handling.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%230F1424%22/><circle cx=%2250%22 cy=%2250%22 r=%2238%22 fill=%22none%22 stroke=%22%23F5A623%22 stroke-width=%224%22/><line x1=%2250%22 y1=%2250%22 x2=%2250%22 y2=%2228%22 stroke=%22%23EDEEF2%22 stroke-width=%224%22 stroke-linecap=%22round%22/><line x1=%2250%22 y1=%2250%22 x2=%2268%22 y2=%2258%22 stroke=%22%233FD0C9%22 stroke-width=%224%22 stroke-linecap=%22round%22/></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://zonesync.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Converter", "item": "https://zonesync.com/converter/"}
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #0F1424; --bg-elev: #161D33; --bg-elev-2: #1D2640;
+    --accent: #F5A623; --accent-dim: #B97D1C; --cyan: #3FD0C9;
+    --text: #EDEEF2; --text-dim: #8B92A8; --border: #2A3350;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  header {
+    border-bottom: 1px solid var(--border); padding: 18px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; background: rgba(15,20,36,0.92); backdrop-filter: blur(8px); z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; }
+  .logo-mark { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--accent); position: relative; flex-shrink: 0; }
+  .logo-mark::before, .logo-mark::after { content: ''; position: absolute; background: var(--text); top: 50%; left: 50%; transform-origin: 0 0; }
+  .logo-mark::before { width: 8px; height: 2px; transform: translate(0,-1px) rotate(-90deg); }
+  .logo-mark::after { width: 6px; height: 2px; background: var(--cyan); transform: translate(0,-1px) rotate(40deg); }
+  nav { display: flex; gap: 28px; }
+  nav a { color: var(--text-dim); font-size: 14px; font-weight: 500; }
+  nav a.active { color: var(--text); }
+  nav a:hover { color: var(--text); text-decoration: none; }
+  @media (max-width: 720px) { nav { display: none; } }
+
+  .breadcrumb { max-width: 900px; margin: 20px auto 0; padding: 0 24px; font-size: 13px; color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--cyan); }
+
+  .page-head { max-width: 900px; margin: 0 auto; padding: 32px 24px 8px; text-align: center; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4.5vw, 42px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .page-sub { color: var(--text-dim); font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+  .converter-shell { max-width: 900px; margin: 32px auto; padding: 0 24px; }
+  .converter-card {
+    background: var(--bg-elev); border: 1px solid var(--border); border-radius: 18px; padding: 32px;
+  }
+
+  .zone-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: end; margin-bottom: 24px; }
+  @media (max-width: 640px) { .zone-row { grid-template-columns: 1fr; } .swap-btn { justify-self: center; } }
+
+  .zone-field label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
+  .zone-field select {
+    width: 100%; background: var(--bg-elev-2); border: 1px solid var(--border); color: var(--text);
+    padding: 14px 14px; border-radius: 10px; font-size: 15px;
+  }
+
+  .swap-btn {
+    background: var(--bg-elev-2); border: 1px solid var(--border); color: var(--accent);
+    width: 44px; height: 44px; border-radius: 50%; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .swap-btn:hover { border-color: var(--accent); transform: rotate(180deg); }
+
+  .datetime-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; margin-bottom: 28px; align-items: end; }
+  @media (max-width: 640px) { .datetime-row { grid-template-columns: 1fr; } }
+  .datetime-row label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
+  .datetime-row input {
+    width: 100%; background: var(--bg-elev-2); border: 1px solid var(--border); color: var(--text);
+    padding: 13px 14px; border-radius: 10px; font-size: 15px; font-family: inherit;
+  }
+  .now-btn {
+    background: transparent; border: 1px solid var(--border); color: var(--cyan);
+    padding: 13px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  }
+  .now-btn:hover { border-color: var(--cyan); }
+
+  .result-panel {
+    background: linear-gradient(135deg, var(--bg-elev-2), var(--bg)); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px; text-align: center;
+  }
+  .result-time { font-family: 'Space Grotesk', monospace; font-size: clamp(32px, 6vw, 48px); font-weight: 700; color: var(--accent); letter-spacing: -0.01em; }
+  .result-date { color: var(--text-dim); font-size: 14px; margin-top: 6px; }
+  .result-diff { margin-top: 16px; display: inline-flex; gap: 8px; background: rgba(63,208,201,0.1); color: var(--cyan); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+
+  .dst-note { display: flex; gap: 10px; align-items: flex-start; background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.25); border-radius: 10px; padding: 14px 16px; margin-top: 20px; font-size: 13px; color: var(--text-dim); }
+  .dst-note strong { color: var(--accent); }
+
+  .ad-slot { max-width: 900px; margin: 0 auto 48px; padding: 0 24px; }
+  .ad-slot-inner { border: 1px dashed var(--border); border-radius: 10px; padding: 20px; text-align: center; color: var(--text-dim); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .info-section { max-width: 760px; margin: 0 auto 72px; padding: 0 24px; color: var(--text-dim); font-size: 15px; }
+  .info-section h2 { font-family: 'Space Grotesk', sans-serif; color: var(--text); font-size: 20px; margin-bottom: 12px; margin-top: 32px; }
+  .info-section h2:first-child { margin-top: 0; }
+  .info-section p { margin-bottom: 14px; }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text-dim); font-size: 13px; }
+  footer a { color: var(--text-dim); margin: 0 10px; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span>ZoneSync</span></div>
+  <nav>
+    <a href="/">World Clock</a>
+    <a href="/converter/" class="active">Converter</a>
+    <a href="/about/">About</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="/">Home</a> / Converter</div>
+
+<div class="page-head">
+  <h1>Time Zone Converter</h1>
+  <p class="page-sub">Convert any date and time between two locations. Daylight saving time is applied automatically based on the date you choose.</p>
+</div>
+
+<div class="converter-shell">
+  <div class="converter-card">
+
+    <div class="zone-row">
+      <div class="zone-field">
+        <label for="fromZone">From</label>
+        <select id="fromZone"></select>
+      </div>
+      <button class="swap-btn" id="swapBtn" aria-label="Swap time zones" title="Swap">⇄</button>
+      <div class="zone-field">
+        <label for="toZone">To</label>
+        <select id="toZone"></select>
+      </div>
+    </div>
+
+    <div class="datetime-row">
+      <div>
+        <label for="dateInput">Date</label>
+        <input type="date" id="dateInput">
+      </div>
+      <div>
+        <label for="timeInput">Time</label>
+        <input type="time" id="timeInput">
+      </div>
+      <button class="now-btn" id="nowBtn">Use current time</button>
+    </div>
+
+    <div class="result-panel">
+      <div class="result-time" id="resultTime">--:-- --</div>
+      <div class="result-date" id="resultDate">Select date, time, and zones above</div>
+      <div class="result-diff" id="resultDiff"></div>
+    </div>
+
+    <div class="dst-note" id="dstNote" style="display:none;">
+      <span>☀️</span>
+      <span><strong>Daylight saving in effect:</strong> <span id="dstText"></span></span>
+    </div>
+
+  </div>
+</div>
+
+<div class="ad-slot"><div class="ad-slot-inner">Advertisement</div></div>
+
+<div class="info-section">
+  <h2>How to use this converter</h2>
+  <p>Pick the starting time zone under "From" and the target time zone under "To," then set the date and time you want to convert. The result updates instantly and reflects whichever daylight saving rules apply on that specific date in each location — not just a fixed hour offset.</p>
+
+  <h2>Why the time difference isn't always a round number</h2>
+  <p>Not every time zone is offset from UTC by a whole number of hours. India Standard Time, for example, sits at UTC+5:30, and parts of Australia and New Zealand use 45-minute offsets. When converting between such zones and whole-hour zones, the resulting time difference can include 30 or 45 minutes, which this tool accounts for automatically.</p>
+
+  <h2>Daylight saving time and why dates matter</h2>
+  <p>Because the United States, the European Union, Australia, and other regions each start and end daylight saving on different calendar dates, the gap between two time zones can shift during the year. Converting a meeting time for next month may produce a different result than converting the same clock time today, which is why this tool always uses the specific date you select rather than today's offset.</p>
+</div>
+
+<footer>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/privacy/">Privacy Policy</a>
+  <div style="margin-top:14px;">© <span id="yearNow"></span> ZoneSync</div>
+</footer>
+
+<script>
+const ZONES = [
+  { label: "New York, USA (Eastern Time)", tz: "America/New_York" },
+  { label: "Chicago, USA (Central Time)", tz: "America/Chicago" },
+  { label: "Denver, USA (Mountain Time)", tz: "America/Denver" },
+  { label: "Los Angeles, USA (Pacific Time)", tz: "America/Los_Angeles" },
+  { label: "Toronto, Canada", tz: "America/Toronto" },
+  { label: "São Paulo, Brazil", tz: "America/Sao_Paulo" },
+  { label: "London, UK", tz: "Europe/London" },
+  { label: "Paris, France", tz: "Europe/Paris" },
+  { label: "Berlin, Germany", tz: "Europe/Berlin" },
+  { label: "Moscow, Russia", tz: "Europe/Moscow" },
+  { label: "Cairo, Egypt", tz: "Africa/Cairo" },
+  { label: "Johannesburg, South Africa", tz: "Africa/Johannesburg" },
+  { label: "Dubai, UAE", tz: "Asia/Dubai" },
+  { label: "Mumbai / New Delhi, India", tz: "Asia/Kolkata" },
+  { label: "Karachi, Pakistan", tz: "Asia/Karachi" },
+  { label: "Dhaka, Bangladesh", tz: "Asia/Dhaka" },
+  { label: "Bangkok, Thailand", tz: "Asia/Bangkok" },
+  { label: "Singapore", tz: "Asia/Singapore" },
+  { label: "Hong Kong", tz: "Asia/Hong_Kong" },
+  { label: "Beijing, China", tz: "Asia/Shanghai" },
+  { label: "Seoul, South Korea", tz: "Asia/Seoul" },
+  { label: "Tokyo, Japan", tz: "Asia/Tokyo" },
+  { label: "Sydney, Australia", tz: "Australia/Sydney" },
+  { label: "Auckland, New Zealand", tz: "Pacific/Auckland" },
+  { label: "UTC (Coordinated Universal Time)", tz: "UTC" }
+];
+
+function populateSelects() {
+  const fromSel = document.getElementById('fromZone');
+  const toSel = document.getElementById('toZone');
+  ZONES.forEach(z => {
+    fromSel.add(new Option(z.label, z.tz));
+    toSel.add(new Option(z.label, z.tz));
+  });
+  fromSel.value = "America/New_York";
+  toSel.value = "Asia/Kolkata";
+}
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function setNow() {
+  const now = new Date();
+  document.getElementById('dateInput').value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+  document.getElementById('timeInput').value = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+}
+
+// Get the UTC offset (in minutes) for a given timezone at a given instant
+function getOffsetMinutes(date, tz) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, hourCycle: 'h23',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  }).formatToParts(date);
+  const map = {};
+  parts.forEach(p => map[p.type] = p.value);
+  const asUTC = Date.UTC(map.year, map.month - 1, map.day, map.hour, map.minute, map.second);
+  return (asUTC - date.getTime()) / 60000;
+}
+
+function isDstActive(tz) {
+  const now = new Date();
+  const jan = new Date(now.getFullYear(), 0, 1);
+  const jul = new Date(now.getFullYear(), 6, 1);
+  const janOffset = getOffsetMinutes(jan, tz);
+  const julOffset = getOffsetMinutes(jul, tz);
+  const stdOffset = Math.min(janOffset, julOffset); // standard time = larger negative / smaller value typically
+  const curOffset = getOffsetMinutes(now, tz);
+  return { active: curOffset !== stdOffset && janOffset !== julOffset, stdOffset, curOffset };
+}
+
+function runConversion() {
+  const fromTz = document.getElementById('fromZone').value;
+  const toTz = document.getElementById('toZone').value;
+  const dateVal = document.getElementById('dateInput').value;
+  const timeVal = document.getElementById('timeInput').value;
+  if (!dateVal || !timeVal) return;
+
+  const [y, m, d] = dateVal.split('-').map(Number);
+  const [hh, mm] = timeVal.split(':').map(Number);
+
+  // Interpret the entered date/time AS IF it were in fromTz, by finding the UTC instant that
+  // displays as (y,m,d,hh,mm) in fromTz. We do this by guessing UTC = local - offset, then
+  // correcting once (handles all real-world offsets including DST).
+  const naiveUTCGuess = Date.UTC(y, m - 1, d, hh, mm);
+  const offsetGuess = getOffsetMinutes(new Date(naiveUTCGuess), fromTz);
+  let actualUTCms = naiveUTCGuess - offsetGuess * 60000;
+  // correct for edge cases near DST transitions
+  const offsetCheck = getOffsetMinutes(new Date(actualUTCms), fromTz);
+  if (offsetCheck !== offsetGuess) {
+    actualUTCms = naiveUTCGuess - offsetCheck * 60000;
+  }
+
+  const instant = new Date(actualUTCms);
+
+  const timeFmt = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: toTz });
+  const dateFmt = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: toTz });
+
+  document.getElementById('resultTime').textContent = timeFmt.format(instant);
+  document.getElementById('resultDate').textContent = dateFmt.format(instant) + ' · ' + toTz.replace('_', ' ');
+
+  const fromOffset = getOffsetMinutes(instant, fromTz);
+  const toOffset = getOffsetMinutes(instant, toTz);
+  const diffMin = toOffset - fromOffset;
+  const diffH = Math.floor(Math.abs(diffMin) / 60);
+  const diffM = Math.abs(diffMin) % 60;
+  const sign = diffMin >= 0 ? 'ahead of' : 'behind';
+  let diffStr = `${diffH}h`;
+  if (diffM) diffStr += ` ${diffM}m`;
+  document.getElementById('resultDiff').textContent =
+    diffMin === 0 ? 'Same time in both zones' : `${diffStr} ${sign} the "From" zone`;
+
+  // DST note
+  const fromDst = isDstActive(fromTz);
+  const toDst = isDstActive(toTz);
+  const dstNote = document.getElementById('dstNote');
+  const dstText = document.getElementById('dstText');
+  const notes = [];
+  if (fromDst.active) notes.push(`the "From" zone is currently observing daylight saving`);
+  if (toDst.active) notes.push(`the "To" zone is currently observing daylight saving`);
+  if (notes.length) {
+    dstNote.style.display = 'flex';
+    dstText.textContent = notes.join(' and ') + '.';
+  } else {
+    dstNote.style.display = 'none';
+  }
+}
+
+document.getElementById('swapBtn').addEventListener('click', () => {
+  const fromSel = document.getElementById('fromZone');
+  const toSel = document.getElementById('toZone');
+  const tmp = fromSel.value;
+  fromSel.value = toSel.value;
+  toSel.value = tmp;
+  runConversion();
+});
+
+document.getElementById('nowBtn').addEventListener('click', () => { setNow(); runConversion(); });
+['fromZone','toZone','dateInput','timeInput'].forEach(id => {
+  document.getElementById(id).addEventListener('change', runConversion);
+  document.getElementById(id).addEventListener('input', runConversion);
+});
+
+populateSelects();
+setNow();
+runConversion();
+document.getElementById('yearNow').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

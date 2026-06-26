@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Time in Dubai, United Arab Emirates — Live Clock | ZoneSync</title>
+<meta name="description" content="What time is it in Dubai right now? Live, accurate local time, UTC offset, and daylight saving status for Dubai, United Arab Emirates.">
+<link rel="canonical" href="https://zonesync.com/timezone/dubai/">
+<meta property="og:title" content="Current Time in Dubai, United Arab Emirates">
+<meta property="og:description" content="Live local time, UTC offset, and daylight saving status for Dubai.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%230F1424%22/><circle cx=%2250%22 cy=%2250%22 r=%2238%22 fill=%22none%22 stroke=%22%23F5A623%22 stroke-width=%224%22/><line x1=%2250%22 y1=%2250%22 x2=%2250%22 y2=%2228%22 stroke=%22%23EDEEF2%22 stroke-width=%224%22 stroke-linecap=%22round%22/><line x1=%2250%22 y1=%2250%22 x2=%2268%22 y2=%2258%22 stroke=%22%233FD0C9%22 stroke-width=%224%22 stroke-linecap=%22round%22/></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://zonesync.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Time Zones", "item": "https://zonesync.com/#cities"},
+    {"@type": "ListItem", "position": 3, "name": "Dubai", "item": "https://zonesync.com/timezone/dubai/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What time zone is Dubai in?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Dubai observes Gulf Standard Time (GST, UTC+4) year-round." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Dubai observe daylight saving time?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Dubai stays on Gulf Standard Time (GST, UTC+4) year-round and does not shift clocks for daylight saving." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #0F1424; --bg-elev: #161D33; --bg-elev-2: #1D2640;
+    --accent: #F5A623; --cyan: #3FD0C9; --text: #EDEEF2; --text-dim: #8B92A8; --border: #2A3350;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; } }
+
+  header { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: rgba(15,20,36,0.92); backdrop-filter: blur(8px); z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; }
+  .logo-mark { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--accent); position: relative; }
+  .logo-mark::before, .logo-mark::after { content: ''; position: absolute; background: var(--text); top: 50%; left: 50%; transform-origin: 0 0; }
+  .logo-mark::before { width: 8px; height: 2px; transform: translate(0,-1px) rotate(-90deg); }
+  .logo-mark::after { width: 6px; height: 2px; background: var(--cyan); transform: translate(0,-1px) rotate(40deg); }
+  nav { display: flex; gap: 28px; }
+  nav a { color: var(--text-dim); font-size: 14px; font-weight: 500; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+  @media (max-width: 720px) { nav { display: none; } }
+
+  .breadcrumb { max-width: 900px; margin: 20px auto 0; padding: 0 24px; font-size: 13px; color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); }
+
+  .hero-clock { max-width: 900px; margin: 0 auto; padding: 28px 24px 8px; text-align: center; }
+  .city-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .city-sub { color: var(--text-dim); font-size: 15px; margin-bottom: 28px; }
+
+  .big-clock-card {
+    background: linear-gradient(135deg, var(--bg-elev-2), var(--bg-elev));
+    border: 1px solid var(--border); border-radius: 20px; padding: 40px 24px; margin-bottom: 24px;
+    position: relative; overflow: hidden;
+  }
+  .daynight-strip { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+  .daynight-strip.day { background: linear-gradient(90deg, var(--accent), #FFD580); }
+  .daynight-strip.night { background: linear-gradient(90deg, #2C3457, var(--cyan)); }
+
+  .status-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 6px 14px; border-radius: 20px; margin-bottom: 18px; }
+  .status-pill.day { background: rgba(245,166,35,0.15); color: var(--accent); }
+  .status-pill.night { background: rgba(63,208,201,0.15); color: var(--cyan); }
+
+  .big-time { font-family: 'Space Grotesk', monospace; font-size: clamp(48px, 10vw, 84px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+  .big-date { color: var(--text-dim); font-size: 16px; margin-top: 8px; }
+
+  .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 900px; margin: 0 auto 24px; padding: 0 24px; }
+  @media (max-width: 700px) { .meta-grid { grid-template-columns: repeat(2, 1fr); } }
+  .meta-item { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+  .meta-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 6px; }
+  .meta-item .value { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; }
+
+  .ad-slot { max-width: 900px; margin: 0 auto 40px; padding: 0 24px; }
+  .ad-slot-inner { border: 1px dashed var(--border); border-radius: 10px; padding: 20px; text-align: center; color: var(--text-dim); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .quick-convert { max-width: 900px; margin: 0 auto 48px; padding: 0 24px; }
+  .qc-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+  .qc-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; margin-bottom: 16px; }
+  .qc-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .qc-row select { flex: 1; min-width: 180px; background: var(--bg-elev-2); border: 1px solid var(--border); color: var(--text); padding: 12px 14px; border-radius: 10px; font-size: 14px; }
+  .qc-arrow { color: var(--text-dim); }
+  .qc-result { margin-top: 18px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .qc-result .big { font-family: 'Space Grotesk', monospace; font-size: 24px; font-weight: 700; color: var(--accent); }
+  .qc-result .small { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  .info-section { max-width: 760px; margin: 0 auto 56px; padding: 0 24px; color: var(--text-dim); font-size: 15px; }
+  .info-section h2 { font-family: 'Space Grotesk', sans-serif; color: var(--text); font-size: 20px; margin-bottom: 12px; margin-top: 32px; }
+  .info-section h2:first-child { margin-top: 0; }
+  .info-section p { margin-bottom: 14px; }
+  .faq-item { margin-bottom: 18px; }
+  .faq-item .q { color: var(--text); font-weight: 600; margin-bottom: 6px; font-size: 15px; }
+
+  .related-cities { max-width: 900px; margin: 0 auto 64px; padding: 0 24px; }
+  .related-cities h2 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; margin-bottom: 16px; }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .related-chip { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 14px; display: block; }
+  .related-chip:hover { border-color: var(--cyan); text-decoration: none; }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text-dim); font-size: 13px; }
+  footer a { color: var(--text-dim); margin: 0 10px; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span>ZoneSync</span></div>
+  <nav>
+    <a href="/">World Clock</a>
+    <a href="/converter/">Converter</a>
+    <a href="/about/">About</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="/">Home</a> / Time Zones / Dubai</div>
+
+<div class="hero-clock">
+  <h1 class="city-title">Current Time in Dubai, United Arab Emirates</h1>
+  <p class="city-sub">Gulf Standard Time Zone · Updates live every second</p>
+</div>
+
+<div class="big-clock-card">
+  <div class="daynight-strip" id="dnStrip"></div>
+  <span class="status-pill" id="statusPill"></span>
+  <div class="big-time" id="bigTime">--:--:--</div>
+  <div class="big-date" id="bigDate">Loading...</div>
+</div>
+
+<div class="meta-grid">
+  <div class="meta-item"><div class="label">UTC Offset</div><div class="value" id="utcOffset">--</div></div>
+  <div class="meta-item"><div class="label">Time Zone</div><div class="value">GST</div></div>
+  <div class="meta-item"><div class="label">DST Status</div><div class="value" id="dstStatus">--</div></div>
+  <div class="meta-item"><div class="label">Day of Year</div><div class="value" id="dayOfYear">--</div></div>
+</div>
+
+<div class="ad-slot"><div class="ad-slot-inner">Advertisement</div></div>
+
+<div class="quick-convert">
+  <div class="qc-card">
+    <h2>Convert Dubai time to another city</h2>
+    <div class="qc-row">
+      <span style="font-size:14px;color:var(--text-dim);">Dubai time:</span>
+      <select id="ignoreFrom" disabled style="opacity:0.6;">
+        <option>Dubai (this page)</option>
+      </select>
+      <span class="qc-arrow">→</span>
+      <select id="toZone">
+        <option value="Europe/London">London, UK</option>
+        <option value="Asia/Kolkata">Mumbai/Delhi, India</option>
+        <option value="Asia/Tokyo">Tokyo, Japan</option>
+        <option value="Australia/Sydney">Sydney, Australia</option>
+        <option value="Asia/Dubai">Dubai, UAE</option>
+        <option value="Europe/Paris">Paris, France</option>
+        <option value="America/Los_Angeles">Los Angeles, USA</option>
+        <option value="Asia/Singapore">Singapore</option>
+      </select>
+    </div>
+    <div class="qc-result">
+      <div class="big" id="qcResultTime">--:--</div>
+      <div class="small" id="qcResultMeta">Select a city above</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-section">
+  <h2>About Dubai time</h2>
+  <p>Dubai follows Gulf Standard Time (GST, UTC+4) year-round. Unlike many Western countries, United Arab Emirates does not observe daylight saving time, so the offset from UTC stays constant throughout the year.</p>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-item">
+    <div class="q">What time zone is Dubai in?</div>
+    <p>Dubai observes Gulf Standard Time (GST, UTC+4) year-round.</p>
+  </div>
+  <div class="faq-item">
+    <div class="q">Does Dubai observe daylight saving time?</div>
+    <p>No. Dubai stays on Gulf Standard Time (GST, UTC+4) year-round and does not shift clocks for daylight saving.</p>
+  </div>
+  <div class="faq-item">
+    <div class="q">How many hours difference between London and Dubai?</div>
+    <p>London is typically three or four hours behind Dubai, since the UAE does not observe daylight saving while the UK shifts its clocks twice a year.</p>
+  </div>
+</div>
+
+<div class="related-cities">
+  <h2>Other major time zones</h2>
+  <div class="related-grid">
+    <a class="related-chip" href="/timezone/new-york/">New York</a>
+    <a class="related-chip" href="/timezone/london/">London</a>
+    <a class="related-chip" href="/timezone/mumbai/">Mumbai</a>
+    <a class="related-chip" href="/timezone/tokyo/">Tokyo</a>
+    <a class="related-chip" href="/timezone/sydney/">Sydney</a>
+    <a class="related-chip" href="/timezone/singapore/">Singapore</a>
+    <a class="related-chip" href="/timezone/paris/">Paris</a>
+    <a class="related-chip" href="/timezone/los-angeles/">Los Angeles</a>
+  </div>
+</div>
+
+<footer>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/privacy/">Privacy Policy</a>
+  <div style="margin-top:14px;">© <span id="yearNow"></span> ZoneSync</div>
+</footer>
+
+<script>
+const CITY_TZ = "Asia/Dubai";
+
+function pad(n) { return String(n).padStart(2,'0'); }
+
+function getOffsetMinutes(date, tz) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, hourCycle: 'h23',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  }).formatToParts(date);
+  const map = {};
+  parts.forEach(p => map[p.type] = p.value);
+  const asUTC = Date.UTC(map.year, map.month - 1, map.day, map.hour, map.minute, map.second);
+  return (asUTC - date.getTime()) / 60000;
+}
+
+function isDstActive(tz) {
+  const now = new Date();
+  const jan = new Date(now.getFullYear(), 0, 1);
+  const jul = new Date(now.getFullYear(), 6, 1);
+  const janOffset = getOffsetMinutes(jan, tz);
+  const julOffset = getOffsetMinutes(jul, tz);
+  const curOffset = getOffsetMinutes(now, tz);
+  const stdOffset = Math.min(janOffset, julOffset);
+  return curOffset !== stdOffset && janOffset !== julOffset;
+}
+
+function tick() {
+  const now = new Date();
+  const timeFmt = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZone: CITY_TZ });
+  const dateFmt = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: CITY_TZ });
+  const hourFmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: CITY_TZ });
+  const offsetFmt = new Intl.DateTimeFormat('en-US', { timeZone: CITY_TZ, hour: '2-digit', timeZoneName: 'shortOffset' });
+
+  document.getElementById('bigTime').textContent = timeFmt.format(now);
+  document.getElementById('bigDate').textContent = dateFmt.format(now);
+
+  const hour24 = parseInt(hourFmt.format(now), 10);
+  const isDay = hour24 >= 6 && hour24 < 19;
+  document.getElementById('dnStrip').className = 'daynight-strip ' + (isDay ? 'day' : 'night');
+  const pill = document.getElementById('statusPill');
+  pill.className = 'status-pill ' + (isDay ? 'day' : 'night');
+  pill.textContent = isDay ? '☀️ Daytime' : '🌙 Nighttime';
+
+  const offsetParts = offsetFmt.formatToParts(now);
+  const offsetVal = offsetParts.find(p => p.type === 'timeZoneName');
+  document.getElementById('utcOffset').textContent = offsetVal ? offsetVal.value.replace('GMT','UTC') : '--';
+
+  document.getElementById('dstStatus').textContent = isDstActive(CITY_TZ) ? 'Active' : 'Not active';
+
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  document.getElementById('dayOfYear').textContent = Math.floor(diff / 86400000);
+}
+
+function tickConvert() {
+  const toTz = document.getElementById('toZone').value;
+  const now = new Date();
+  const fromFmt = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: CITY_TZ });
+  const toFmt = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: toTz });
+  document.getElementById('qcResultTime').textContent = toFmt.format(now);
+  document.getElementById('qcResultMeta').textContent = `When it's ${fromFmt.format(now)} in Dubai`;
+}
+
+document.getElementById('toZone').addEventListener('change', tickConvert);
+document.getElementById('yearNow').textContent = new Date().getFullYear();
+
+tick();
+tickConvert();
+setInterval(() => { tick(); tickConvert(); }, 1000);
+</script>
+
+</body>
+</html>
